@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 
 })
 
-// Paso 1
 app.get("/SignIn", (req, res) => {
     // Paso 2
     const { email, password } = req.query
@@ -22,12 +21,10 @@ app.get("/SignIn", (req, res) => {
     // Paso 4
     if (agente) {
 
-        // Paso 5
         const token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + 10,
             data: agente
         }, secretKey);
-        // Paso 6
         res.send(`
             <a href="/token?token=${token}&email=${email}"> <p> Ir a Misiones secretas </p></a>
             Bienvenido, ${email}.
@@ -37,16 +34,13 @@ app.get("/SignIn", (req, res) => {
             </script>`
         );
     } else {
-        // Paso 7
         res.send("Usuario o contraseña incorrecta");
     }
 
 });
 
 app.get("/token", (req, res) => {
-    // Paso 2 Tomar token del queryStrings
     const { token, email } = req.query
-    // Paso 3 Verificar el token
     const respuesta = `<h2> Bienvenido </h2>
 Bienvenido, ${email}.`
 
